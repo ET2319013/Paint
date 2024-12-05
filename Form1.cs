@@ -5,6 +5,8 @@ namespace Paint
 		public Form1()
 		{
 			InitializeComponent();
+			//to test auto scroll, uncomment:
+			pictureBox1.Image = Image.FromFile(".//..//..//..//1.jpg");
 		}
 	}
 }

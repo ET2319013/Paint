@@ -28,18 +28,48 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			flowLayoutPanel1 = new FlowLayoutPanel();
+			pictureBox1 = new PictureBox();
+			flowLayoutPanel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			SuspendLayout();
+			// 
+			// flowLayoutPanel1
+			// 
+			flowLayoutPanel1.AutoScroll = true;
+			flowLayoutPanel1.Controls.Add(pictureBox1);
+			flowLayoutPanel1.Dock = DockStyle.Left;
+			flowLayoutPanel1.Location = new Point(0, 0);
+			flowLayoutPanel1.Name = "flowLayoutPanel1";
+			flowLayoutPanel1.Size = new Size(674, 450);
+			flowLayoutPanel1.TabIndex = 0;
+			// 
+			// pictureBox1
+			// 
+			pictureBox1.Location = new Point(3, 3);
+			pictureBox1.Name = "pictureBox1";
+			pictureBox1.Size = new Size(125, 62);
+			pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+			pictureBox1.TabIndex = 0;
+			pictureBox1.TabStop = false;
 			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(flowLayoutPanel1);
 			Name = "Form1";
 			Text = "Form1";
+			flowLayoutPanel1.ResumeLayout(false);
+			flowLayoutPanel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
 			ResumeLayout(false);
 		}
 
 		#endregion
+
+		private FlowLayoutPanel flowLayoutPanel1;
+		private PictureBox pictureBox1;
 	}
 }
