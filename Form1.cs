@@ -6,7 +6,13 @@ namespace Paint
 		{
 			InitializeComponent();
 			//to test auto scroll, uncomment:
-			pictureBox1.Image = Image.FromFile(".//..//..//..//1.jpg");
+			//pictureBox1.Image = Image.FromFile();
+			bitmap = new(".//..//..//..//1.jpg");
+			pictureBox1.Image = bitmap;
+
 		}
+
+		private Bitmap bitmap;
+
 	}
 }
