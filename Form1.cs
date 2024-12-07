@@ -14,5 +14,11 @@ namespace Paint
 
 		private Bitmap bitmap;
 
+		private void button1_Click(object sender, EventArgs e)
+		{
+			Point x = new(10, 10);
+			ColorTool.Recolor(bitmap, x, Color.Black);
+			pictureBox1.Image = bitmap;
+		}
 	}
 }

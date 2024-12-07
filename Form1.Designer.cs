@@ -30,6 +30,7 @@
 		{
 			flowLayoutPanel1 = new FlowLayoutPanel();
 			pictureBox1 = new PictureBox();
+			button1 = new Button();
 			flowLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			SuspendLayout();
@@ -53,11 +54,22 @@
 			pictureBox1.TabIndex = 0;
 			pictureBox1.TabStop = false;
 			// 
+			// button1
+			// 
+			button1.Location = new Point(690, 21);
+			button1.Name = "button1";
+			button1.Size = new Size(94, 29);
+			button1.TabIndex = 1;
+			button1.Text = "button1";
+			button1.UseVisualStyleBackColor = true;
+			button1.Click += button1_Click;
+			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(button1);
 			Controls.Add(flowLayoutPanel1);
 			Name = "Form1";
 			Text = "Form1";
@@ -71,5 +83,6 @@
 
 		private FlowLayoutPanel flowLayoutPanel1;
 		private PictureBox pictureBox1;
+		private Button button1;
 	}
 }

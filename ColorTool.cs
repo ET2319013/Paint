@@ -8,7 +8,15 @@ namespace Paint
 {
 	internal class ColorTool
 	{
-		public static Bitmap Recolor(Bitmap bmp, Point pt, Color color)
+		public static void Recolor(Bitmap bmp, Point pt, Color color)
+		{
+
+			bmp.GetPixel(pt.X, pt.Y);
+			bmp.SetPixel(pt.X, pt.Y, color);
+
+		}
+
+		public static void RecolorUsingBitmapData(Bitmap bmp, Point pt, Color color)
 		{
 			//from https://learn.microsoft.com/
 
@@ -37,7 +45,6 @@ namespace Paint
 			// Unlock the bits.
 			bmp.UnlockBits(bmpData);
 
-			return bmp;
 		}
 	}
 }
