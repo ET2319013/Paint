@@ -16,9 +16,19 @@ namespace Paint
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			Point x = new(10, 10);
-			ColorTool.Recolor(bitmap, x, Color.Black);
-			pictureBox1.Image = bitmap;
+		}
+
+		private bool RecolorMode = true;
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+			if(RecolorMode)
+			{
+				var mousePoint = pictureBox1.PointToClient(System.Windows.Forms.Control.MousePosition);
+				var oldColor = bitmap.GetPixel(mousePoint.X, mousePoint.Y);
+				var newColor = Color.Black;
+				ColorTool.Recolor(bitmap, mousePoint, oldColor, newColor);
+				pictureBox1.Image = bitmap;
+			}
 		}
 	}
 }

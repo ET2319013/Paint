@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,15 +9,55 @@ namespace Paint
 {
 	internal class ColorTool
 	{
-		public static void Recolor(Bitmap bmp, Point pt, Color color)
+		public static void Recolor(Bitmap bmp, Point pt, Color oldcolor, Color newcolor)
 		{
+			List<List<bool>> visited = new List<List<bool>>();
+			for(int i = 0; i < 3; i++)
+			{
+				List<bool> v = new List<bool>();
+				v.Add(false);	
+				v.Add(false);
+				v.Add(false);
+				visited.Add(v);
 
-			bmp.GetPixel(pt.X, pt.Y);
-			bmp.SetPixel(pt.X, pt.Y, color);
+			}
+			visited[1][1] = true;
+			RecolorWithNeighbours(bmp, pt, oldcolor, newcolor, visited);
+		}
+
+		public static void RecolorWithNeighbours(Bitmap bmp, Point pt, Color oldcolor, Color newcolor, List<List<bool>> visited)
+		{
+			if(pt.X < 0  || pt.Y < 0 || pt.X >= bmp.Width || pt.Y >= bmp.Height) 
+				return;
+			var curColor = bmp.GetPixel(pt.X, pt.Y);
+			if(ColorsEqual(curColor, oldcolor))
+			{
+				//for(var i = -1; i <= 1; i++) 
+				//{
+				//	for (var j = -1; j <= 1; j++)
+				//	{
+				//		if(i != 0 || j != 0 || !visited[i + 1][j+1])
+				//		{
+				//			var nexPoint = new Point(pt.X + i, pt.Y +j);
+				//			RecolorWithNeighbours(bmp, nexPoint, oldcolor, newcolor, visited);
+				//			visited[i + 1][j + 1] = true;
+				//		}
+				//	}
+				//}
+				bmp.SetPixel(pt.X, pt.Y, newcolor);
+			}
 
 		}
 
-		public static void RecolorUsingBitmapData(Bitmap bmp, Point pt, Color color)
+		private static int Accurancy = 1;
+		
+		private static bool ColorsEqual(Color color1, Color color2)
+		{
+			return Math.Abs(color1.R - color2.R) <= Accurancy && Math.Abs(color1.G - color2.G) <= Accurancy &&
+				Math.Abs(color1.B - color2.B) <= Accurancy && Math.Abs(color1.A - color2.A) <= Accurancy;
+		}
+
+		public static void RecolorUsingBitmapData(Bitmap bmp, Point pt, Color oldcolor, Color newcolor)
 		{
 			//from https://learn.microsoft.com/
 
