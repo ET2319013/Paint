@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -15,23 +16,19 @@ namespace Paint
 		public ColorTool(Bitmap bmp) { _bmp = bmp; }
 		public Bitmap Recolor(Point pt, Color oldcolor, Color newcolor)
 		{
-			toRecolor.Clear();	
+			visited.Clear();
 			RecolorWithNeighbours(pt, oldcolor, newcolor);
-			foreach(var point in toRecolor)
-			{
-				_bmp.SetPixel(point.X, point.Y, newcolor);
-			}
 			return _bmp;
 		}
 
-		private HashSet<Point> toRecolor = new();
+		private HashSet<Point> visited = new();
 
 		private void RecolorWithNeighbours(Point pt, Color oldcolor, Color newcolor)
 		{
 			var curColor = _bmp.GetPixel(pt.X, pt.Y);
-			if(ColorsEqual(curColor, oldcolor))
+			visited.Add(pt);
+			if (ColorsEqual(curColor, oldcolor))
 			{
-				toRecolor.Add(pt);
 				List<Point> Neighbours = new()
 				{
 					new Point(pt.X, pt.Y + 1),
@@ -42,11 +39,12 @@ namespace Paint
 
 				foreach(var point in Neighbours)
 				{
-					if (point.X >= 0 && point.Y > 0 && point.X < _bmp.Width && point.Y < _bmp.Height && !toRecolor.Contains(point))
+					if (point.X >= 0 && point.Y > 0 && point.X < _bmp.Width && point.Y < _bmp.Height && !visited.Contains(point))
 					{
 						RecolorWithNeighbours(point, oldcolor, newcolor);
 					}
 				}
+				_bmp.SetPixel(pt.X, pt.Y, newcolor);
 			}
 		}
 
