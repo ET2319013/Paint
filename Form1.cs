@@ -26,7 +26,8 @@ namespace Paint
 				var mousePoint = pictureBox1.PointToClient(System.Windows.Forms.Control.MousePosition);
 				var oldColor = bitmap.GetPixel(mousePoint.X, mousePoint.Y);
 				var newColor = Color.Black;
-				ColorTool.Recolor(bitmap, mousePoint, oldColor, newColor);
+				ColorTool colorTool = new ColorTool(bitmap);
+				colorTool.Recolor(mousePoint, oldColor, newColor);
 				pictureBox1.Image = bitmap;
 			}
 		}

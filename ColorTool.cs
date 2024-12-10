@@ -9,47 +9,49 @@ namespace Paint
 {
 	internal class ColorTool
 	{
-		public static void Recolor(Bitmap bmp, Point pt, Color oldcolor, Color newcolor)
-		{
-			List<List<bool>> visited = new List<List<bool>>();
-			for(int i = 0; i < 3; i++)
-			{
-				List<bool> v = new List<bool>();
-				v.Add(false);	
-				v.Add(false);
-				v.Add(false);
-				visited.Add(v);
 
+		private Bitmap _bmp;
+
+		public ColorTool(Bitmap bmp) { _bmp = bmp; }
+		public Bitmap Recolor(Point pt, Color oldcolor, Color newcolor)
+		{
+			toRecolor.Clear();	
+			RecolorWithNeighbours(pt, oldcolor, newcolor);
+			foreach(var point in toRecolor)
+			{
+				_bmp.SetPixel(point.X, point.Y, newcolor);
 			}
-			visited[1][1] = true;
-			RecolorWithNeighbours(bmp, pt, oldcolor, newcolor, visited);
+			return _bmp;
 		}
 
-		public static void RecolorWithNeighbours(Bitmap bmp, Point pt, Color oldcolor, Color newcolor, List<List<bool>> visited)
+		private HashSet<Point> toRecolor = new();
+
+		private void RecolorWithNeighbours(Point pt, Color oldcolor, Color newcolor)
 		{
-			if(pt.X < 0  || pt.Y < 0 || pt.X >= bmp.Width || pt.Y >= bmp.Height) 
-				return;
-			var curColor = bmp.GetPixel(pt.X, pt.Y);
+			var curColor = _bmp.GetPixel(pt.X, pt.Y);
 			if(ColorsEqual(curColor, oldcolor))
 			{
-				//for(var i = -1; i <= 1; i++) 
-				//{
-				//	for (var j = -1; j <= 1; j++)
-				//	{
-				//		if(i != 0 || j != 0 || !visited[i + 1][j+1])
-				//		{
-				//			var nexPoint = new Point(pt.X + i, pt.Y +j);
-				//			RecolorWithNeighbours(bmp, nexPoint, oldcolor, newcolor, visited);
-				//			visited[i + 1][j + 1] = true;
-				//		}
-				//	}
-				//}
-				bmp.SetPixel(pt.X, pt.Y, newcolor);
-			}
+				toRecolor.Add(pt);
+				List<Point> Neighbours = new()
+				{
+					new Point(pt.X, pt.Y + 1),
+					new Point(pt.X, pt.Y - 1),
+					new Point(pt.X - 1, pt.Y),
+					new Point(pt.X + 1, pt.Y)
+				};
 
+				foreach(var point in Neighbours)
+				{
+					if (point.X >= 0 && point.Y > 0 && point.X < _bmp.Width && point.Y < _bmp.Height && !toRecolor.Contains(point))
+					{
+						RecolorWithNeighbours(point, oldcolor, newcolor);
+					}
+				}
+			}
 		}
 
-		private static int Accurancy = 1;
+		private static readonly int Accurancy = 0;
+		//
 		
 		private static bool ColorsEqual(Color color1, Color color2)
 		{
