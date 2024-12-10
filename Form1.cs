@@ -21,12 +21,12 @@ namespace Paint
 		private bool RecolorMode = true;
 		private void pictureBox1_Click(object sender, EventArgs e)
 		{
-			if(RecolorMode)
+			if (RecolorMode)
 			{
 				var mousePoint = pictureBox1.PointToClient(System.Windows.Forms.Control.MousePosition);
 				var oldColor = bitmap.GetPixel(mousePoint.X, mousePoint.Y);
 				var newColor = Color.Black;
-				ColorTool colorTool = new ColorTool(bitmap);
+				ColorTool colorTool = new(bitmap);
 				colorTool.Recolor(mousePoint, oldColor, newColor);
 				pictureBox1.Image = bitmap;
 			}

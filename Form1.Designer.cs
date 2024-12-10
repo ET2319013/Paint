@@ -36,9 +36,9 @@
 			// 
 			// flowLayoutPanel1
 			// 
+			flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			flowLayoutPanel1.AutoScroll = true;
 			flowLayoutPanel1.Controls.Add(pictureBox1);
-			flowLayoutPanel1.Dock = DockStyle.Left;
 			flowLayoutPanel1.Location = new Point(0, 0);
 			flowLayoutPanel1.Name = "flowLayoutPanel1";
 			flowLayoutPanel1.Size = new Size(674, 450);
