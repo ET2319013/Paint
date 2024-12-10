@@ -17,13 +17,49 @@ namespace Paint
 		public Bitmap Recolor(Point pt, Color oldcolor, Color newcolor)
 		{
 			visited.Clear();
-			RecolorWithNeighbours(pt, oldcolor, newcolor);
+			RecolorNonRecursive(pt, oldcolor, newcolor);
 			return _bmp;
 		}
 
 		private HashSet<Point> visited = new();
 
-		private void RecolorWithNeighbours(Point pt, Color oldcolor, Color newcolor)
+		private void RecolorNonRecursive(Point pt, Color oldcolor, Color newcolor)
+		{
+			_bmp.SetPixel(pt.X, pt.Y, newcolor);
+			visited.Add(pt);
+			Stack<Point> stack = new();
+			stack.Push(pt);
+			while (stack.Count > 0)
+			{
+				Point curPt = stack.Pop();
+				List<Point> Neighbours = new()
+				{
+					new Point(curPt.X, curPt.Y + 1),
+					new Point(curPt.X, curPt.Y - 1),
+					new Point(curPt.X - 1, curPt.Y),
+					new Point(curPt.X + 1, curPt.Y)
+				};
+
+				foreach (var point in Neighbours)
+				{
+					
+					if (point.X >= 0 && point.Y > 0 && point.X < _bmp.Width && point.Y < _bmp.Height && !visited.Contains(point))
+					{
+						visited.Add(point);
+						var curColor = _bmp.GetPixel(point.X, point.Y);
+						if(ColorsEqual(curColor, oldcolor))
+						{
+							_bmp.SetPixel(point.X, point.Y, newcolor);
+							stack.Push(point);
+						}
+							
+					}
+				}
+
+			}
+
+		}
+		private void RecolorRecursive(Point pt, Color oldcolor, Color newcolor)
 		{
 			var curColor = _bmp.GetPixel(pt.X, pt.Y);
 			visited.Add(pt);
@@ -41,7 +77,7 @@ namespace Paint
 				{
 					if (point.X >= 0 && point.Y > 0 && point.X < _bmp.Width && point.Y < _bmp.Height && !visited.Contains(point))
 					{
-						RecolorWithNeighbours(point, oldcolor, newcolor);
+						RecolorRecursive(point, oldcolor, newcolor);
 					}
 				}
 				_bmp.SetPixel(pt.X, pt.Y, newcolor);
