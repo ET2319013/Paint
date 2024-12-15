@@ -35,6 +35,9 @@
 			openToolStripMenuItem = new ToolStripMenuItem();
 			colorToolStripMenuItem = new ToolStripMenuItem();
 			chooseColorToolStripMenuItem = new ToolStripMenuItem();
+			stopToolStripMenuItem = new ToolStripMenuItem();
+			openFileDialog1 = new OpenFileDialog();
+			colorDialog1 = new ColorDialog();
 			flowLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			menuStrip1.SuspendLayout();
@@ -59,6 +62,7 @@
 			pictureBox1.TabIndex = 0;
 			pictureBox1.TabStop = false;
 			pictureBox1.Click += pictureBox1_Click;
+			pictureBox1.MouseHover += pictureBox1_MouseHover;
 			// 
 			// menuStrip1
 			// 
@@ -80,12 +84,13 @@
 			// openToolStripMenuItem
 			// 
 			openToolStripMenuItem.Name = "openToolStripMenuItem";
-			openToolStripMenuItem.Size = new Size(224, 26);
+			openToolStripMenuItem.Size = new Size(128, 26);
 			openToolStripMenuItem.Text = "Open";
+			openToolStripMenuItem.Click += openToolStripMenuItem_Click;
 			// 
 			// colorToolStripMenuItem
 			// 
-			colorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseColorToolStripMenuItem });
+			colorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { chooseColorToolStripMenuItem, stopToolStripMenuItem });
 			colorToolStripMenuItem.Name = "colorToolStripMenuItem";
 			colorToolStripMenuItem.Size = new Size(59, 24);
 			colorToolStripMenuItem.Text = "Color";
@@ -95,6 +100,18 @@
 			chooseColorToolStripMenuItem.Name = "chooseColorToolStripMenuItem";
 			chooseColorToolStripMenuItem.Size = new Size(224, 26);
 			chooseColorToolStripMenuItem.Text = "Choose color";
+			chooseColorToolStripMenuItem.Click += chooseColorToolStripMenuItem_Click;
+			// 
+			// stopToolStripMenuItem
+			// 
+			stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+			stopToolStripMenuItem.Size = new Size(224, 26);
+			stopToolStripMenuItem.Text = "Stop";
+			stopToolStripMenuItem.Click += stopToolStripMenuItem_Click;
+			// 
+			// openFileDialog1
+			// 
+			openFileDialog1.Filter = "jpeg|*.jpg|bmp|*.bmp|png|*.png";
 			// 
 			// Form1
 			// 
@@ -124,5 +141,8 @@
 		private ToolStripMenuItem openToolStripMenuItem;
 		private ToolStripMenuItem colorToolStripMenuItem;
 		private ToolStripMenuItem chooseColorToolStripMenuItem;
+		private OpenFileDialog openFileDialog1;
+		private ColorDialog colorDialog1;
+		private ToolStripMenuItem stopToolStripMenuItem;
 	}
 }
